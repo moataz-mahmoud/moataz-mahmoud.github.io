@@ -1,11 +1,6 @@
 /**
-<<<<<<< HEAD
  ** @author: Moataz Mahmoud
  ** @email: moatazmasters@gmail.com
-=======
- ** @author: Moataz Mahmouddd
- ** @email: mostafa.3210@gmail.com
->>>>>>> a45db4cc7acebca407e041a895a30ebe47985374
  ** @liscence: MIT
  **
  ** @NOTE: the plugin requires the fontawesome library
