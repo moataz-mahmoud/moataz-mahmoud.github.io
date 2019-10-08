@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
 * author : Moataz Mahmoud (moatazmasters@gmail.com)
+=======
+* author : Moataz Mahmoud (mostafa.3210@gmail.com)
+>>>>>>> a45db4cc7acebca407e041a895a30ebe47985374
 * motivation : providing interfaces and features to work with IE8 quirks
 **/
 
