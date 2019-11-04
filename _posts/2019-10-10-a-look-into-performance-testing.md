@@ -37,11 +37,11 @@ Web performance includes how long it takes to load the content required, how lon
 
 The lifecycle of an HTML page has three important events:
 
-1. **DOMContentLoaded** – the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures <img> and stylesheets may be not yet loaded. At this point the handler can lookup DOM nodes, initialize the interface.
+1.**DOMContentLoaded** – the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures <img> and stylesheets may be not yet loaded. At this point the handler can lookup DOM nodes, initialize the interface.
 
-2. **load** – not only HTML is loaded, but also all the external resources: images, styles etc.
+2.**load** – not only HTML is loaded, but also all the external resources: images, styles etc.
 
-3. **beforeunload/unload** – the user is leaving the page. Now we can check if the user saved the changes and ask them whether they really want to leave.
+3.**beforeunload/unload** – the user is leaving the page. Now we can check if the user saved the changes and ask them whether they really want to leave.
 
 There are many other in between events, but when we are talking about web performance those three are the most important events to take care of.
 
