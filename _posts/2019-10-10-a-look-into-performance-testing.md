@@ -5,7 +5,7 @@ date: 2019-10-10 09:51:18
 image: '/assets/img/'
 tags: [performance testing]
 categories: [performance testing]
-twitter_text: 'A deep look into web performance'
+twitter_text: 'How to measure the performance of your website'
 ---
 
 ## Introduction
@@ -73,27 +73,37 @@ We discussed from a business overview why you should take care of your system's 
 * A final point here is that there is no need to mention that discovering performance issues earlier -like any other bugs in your system- helps you to save money, time, and effort. Discovering it in the development phase is almost free. Discovering it while testing is low cost. Discovering it early on production is high cost. Letting the user discover it may be a catastrophe.
 
 ## How to care about web performance?
+Now after we talked a lot about the importance of the high performance of a website. Let's talk a little bit about how to care about the performance of your website as a developer. And since I'm not a developer, so this section will be just a straight forward points without so much details. But if you are more interested to know about the development perspective, you can find further readings in the references section.
 
-### From development perspective
-When I'm not a developer, so this section will be just a straight forward points with out so much details. But if you are more interested to know about the development perspective, you can find further readings in the references section.
 * Build a different mobile version of your website (opening from mobile data needs to be more conservative compared to opening from wifi).
 * Migrate to HTTP/2. HTTP/2 addresses many performance problems inherent in HTTP/1.1, such as concurrent request limits and the lack of header compression.
 * Download resources earlier using resource hints. rel=preload is one such resource hint that allows early fetches of critical resources before the browser would otherwise discover them. This can have a pronounced positive effect on page rendering and lowering Time to Interactive when used judiciously. rel=preconnect is another resource hint that can mask the latency of opening new connections for resources hosted on third party domains.
 * Minify your text assets. Minification is the removal of unnecessary whitespace, comments and other content in text-based resources. It significantly reduces the amount of data you send to users without impacting functionality. Use uglification in JavaScript to get more savings through shortening variable and method names.
 * Consider using code splitting in webpack to limit the amount of scripts downloaded to only what is needed by the current page or view. Separate your CSS into smaller template or component-specific files, and only include those resources where they're likely to be used.
-* Configure your server to compress resources. Compression drastically reduces the amount of data you send to users, especially text assets. GZIP is a popular option, but some tools like **[Brotli](https://github.com/google/brotli)** compression can go further.
-
-### From testing perspective
-
-## How far is speed a luxury matter?
-
-## A deeper look into client side performance
+* Configure your server to compress resources. Compression drastically reduces the amount of data you send to users, especially text assets. GZIP is a popular option, but some tools like [Brotli](https://github.com/google/brotli) compression can go further.
+* Deliver images responsively. The huge diversity of devices and their screens presents a tremendous opportunity to improve performance by sending images that are the best fit for the screens that view them. In the simplest use cases, you can add an srcset attribute to an `<img>` element to specify an array of images the browser can choose from. On the more complex side of things, you can use `<picture>` to help the browser choose the most optimal format (e.g., WebP over JPEG or PNG), or serve altogether different treatments of images for different screen sizes.
+* Use video instead of animated GIFs. Animated GIFs are massive. Videos of similar quality are far smaller, often by 80% or so. If your site makes heavy use of animated GIFs, this is probably the most impactful thing you can do to improve loading performance.
 
 ## Performance testing types
+There are a lot of performance testing types. If you keep searching the web, you will find tens of them. But generally, whatever the type of your business, most probably you will find the type you need in this list: 
+
+* **Load testing**: It's testing the behavior under normal or peak workload conditions. Load is more about characterizing or simulating your actual workload.
+* **Stress testing**: It's testing issues under extreme conditions and resource failures. In stress testing you overloads the system in order to find the breaking point.
+* **Soak testing**: It's also known as endurance testing. It's running a system at high load for a prolonged period of time to identify the performance problems. It is to make sure the software can handle the expected load over a long period of time. 
+* **Spike testing**: It's to determine the behaviour of the system under sudden increase of load (a large number of users for example) on the system.
+
+Here is a test case which shows the difference between the above four types. Let's say that you are building an e-commerce website and you are expecting 10,000 user at the peak time. 
+
+* To perform **load testing** you can try testing with 1000 user as normal number of expected user or average. And should test with 10,000 concurrent user to simulate the maximum load on your website. 
+* To perform **stress testing** you can simulate that one of your servers under the load balancer got down and start watching what's the destiny of the users who were served by this server. You shall also start testing the performance of your website under more than 10,000 concurrently and find when the system will start to behave strangely. When users loss will start. And how the system will behave when it starts losing those users. All of this should be a part of the stress testing plan. 
+* Let's say that the peak time when you receive 10,000 visitors doesn't last for a long time. It lasts for five minutes for example. To perform **soak testing** you should check the performance of those 10,000 users when all of them keep using the sytem for 1 hour for example. 
+* Finally, the case in **spike testing** is about keeping the number of users in the average (1000 supposedly in our case) for a decent time, then increase the number of users suddenly to 10,000 (the peak) and start monitoring the performance. Then let it back for 1000 for sometime, and increase it back to a point which is above the peek and keep monitoring the performance.
 
 ## How long is too long?
 
 ## How often should you run a performance testing? 
+
+## A deep look into client side performance
 
 ## Prformance testing tools
 
