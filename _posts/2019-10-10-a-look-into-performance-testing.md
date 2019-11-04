@@ -38,9 +38,7 @@ Web performance includes how long it takes to load the content required, how lon
 The lifecycle of an HTML page has three important events:
 
 1. **DOMContentLoaded** – the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures <img> and stylesheets may be not yet loaded. At this point the handler can lookup DOM nodes, initialize the interface.
-
 2. **load** – not only HTML is loaded, but also all the external resources: images, styles etc.
-
 3. **beforeunload/unload** – the user is leaving the page. Now we can check if the user saved the changes and ask them whether they really want to leave.
 
 There are many other in between events, but when we are talking about web performance those three are the most important events to take care of.
@@ -57,21 +55,14 @@ A 22.6 MB site can take up to 83 seconds to load, with DOMContentLoaded at 31.86
 In the language of numbers, here are some statistics from the real market which shows you how crucial is a small improvement in the performance of your website in milliseconds... 
 
 * Mozilla saw 60 million more downloads each year by making their webpage 2.2 seconds faster.
-
 * Amazon calculated that webpage load slowdown of just one second could price it $1.6 billion in revenue annually.
-
 * Pinterest increased search engine traffic and sign-ups by 15% when they reduced perceived wait times by 40%.
-
 * COOK increased conversions by 7%, decreased bounce rates by 7%, and increased pages per session by 10% when they reduced average page load time by 850 milliseconds.
 
 And here are other case studies where low performance had a negative impact on business goals:
-
 * Bing discovered that a 2-second delay in page loading time led to a 1.8% drop off in queries, a 3.75% reduction in clicks, over a 4% reduction in satisfaction and a 4.3% reduction in revenue per visitor. 
-
 * Google loses 20% of their traffic for every additional 100 milliseconds it takes for a page to load.
-
 * The BBC found they lost an additional 10% of users for every additional second their site took to load.
-
 * DoubleClick by Google found 53% of mobile site visits were abandoned if a page took longer than 3 seconds to load.
 
 We discussed from a business overview why you should take care of your system's performance. Now let's take a different look from a technical perspective.
