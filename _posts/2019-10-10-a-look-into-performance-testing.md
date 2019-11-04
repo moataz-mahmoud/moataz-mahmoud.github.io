@@ -37,7 +37,7 @@ Web performance includes how long it takes to load the content required, how lon
 
 The lifecycle of an HTML page has three important events:
 
-1. **DOMContentLoaded** – the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures <img> and stylesheets may be not yet loaded. At this point the handler can lookup DOM nodes, initialize the interface.
+1. **DOMContentLoaded** – the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures *<img>* and stylesheets may be not yet loaded. At this point the handler can lookup DOM nodes, initialize the interface.
 2. **load** – not only HTML is loaded, but also all the external resources: images, styles etc.
 3. **beforeunload/unload** – the user is leaving the page. Now we can check if the user saved the changes and ask them whether they really want to leave.
 
@@ -68,11 +68,8 @@ And here are other case studies where low performance had a negative impact on b
 We discussed from a business overview why you should take care of your system's performance. Now let's take a different look from a technical perspective.
 
 * There is no need for an expert to tell you that your system definetly will behave completely different under a load. For example if your system can handle N users comfortably with only 50% of the server capabilities, it doesn't require that you can handle 2N users with your current setup. And if we suppose that there won't be any missed user, there is nothing saying that all the 2N users can use your system smoothly. Your server can land a huge number to the home page at the same time, but when it comes to serving them aroung the whole system, it's completely a different story.
-
 * Continuous integration pipelines aren't complete without load testing. The main idea behind the continuous integration is making sure that any code changes don't break the system. You can make sure that it works fine **functionally** without injecting load testing into the pipeline. But that "functionally" isn't the whole story. You may add a new code snippet for example which doesn't break any of the system function but it abuses the server resources. And this can lead to a real disastar in a short time.
-
 * Another technical reason about why you need to care about performance is that you don't always know when the number of users will increase massively. Yes, sometimes you know and are well prepared for that. But sometimes you don't. Once I was working on a Learning Management System which supposed to handle 10 thousand user per time in it's first stage, suddenly one of the influncers taked about our system on TV and more than 100 thousand user started visiting us in a few hours. The 10 thousand user threeshold got met just 10 minutes after the TV show got presented. At this point, you can't predect what's the behavior of the system will be in the early stages. At the late stages it will get down definetly and you can't help if you are not well prepared. Even if you are prepared and you implement some sort of auto-scaling, you can't build it and leave it without monitoring. Because if you did, simply I can create a very simple bot generating too many fake visits and it will cost you heavily! So **you need to know what's the limits of your system, and how it will behave when it comes to those limits**
-
 * A final point here is that there is no need to mention that discovering performance issues earlier -like any other bugs in your system- helps you to save money, time, and effort. Discovering it in the development phase is almost free. Discovering it while testing is low cost. Discovering it early on production is high cost. Letting the user discover it may be a catastrophe.
 
 ## How to care about web performance?
