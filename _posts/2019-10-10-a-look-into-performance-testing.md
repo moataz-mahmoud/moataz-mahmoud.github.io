@@ -100,7 +100,7 @@ Here is a test case which shows the difference between the above four types. Let
 * Finally, the case in **spike testing** is about keeping the number of users in the average (1000 supposedly in our case) for a decent time, then increase the number of users suddenly to 10,000 (the peak) and start monitoring the performance. Then let it back for 1000 for sometime, and increase it back to a point which is above the peek and keep monitoring the performance.
 
 ## How long is too long?
-There are no obvious rules indicates what's a slow loading time and what's fast. On the other hand, there are some specific guidelines for indicating content load, idiling time, animating time, and reponsive time. Let's discuss quickly each one of them.
+At this point, it's important to put some borders to identify how much your website is slow or fast. Actually, there are no obvious rules indicates what's a slow loading time and what's fast. On the other hand, there are some specific guidelines for indicating content load, idiling time, animating time, and reponsive time. Let's discuss quickly each one of them.
 
 * We mean here by load time the maximum amount of time to indicate to a user that the request for new content was made and will load, such as the browser displaying the page title and the background color of the page displaying. As you may know the first asset retrieved from a request is usually an HTML document, which then makes calls for additional assets. When HTML is received, browsers immediately start processing that HTML, rendering the content as it is received rather than waiting for additional assets to load. Yes, one second for loading is the goal, but it's something few sites achieve. Expectations differ... a 'hello world' on the corporate network would be expected to load in milliseconds, but a user downloading a cat video on a five-year-old device over an edge network in kenia would likely find a 20-second download speedy. In optimizing for performance, do set an ambitious first load goal, such as 5 seconds over the mobile 3G network and 1.5 seconds on an office internet line, with even more ambitious page load goals for subsequent page loads, leveraging service workers and caching.
 
@@ -113,16 +113,19 @@ There are no obvious rules indicates what's a slow loading time and what's fast.
 > So we can summarize this section saying that the goal for load time is 1 second, 50 ms for idiling, animating within 16.7ms, and responding to the user input in 50ms.
 
 ## How often should you run a performance testing? 
+Another important question before moving to the applicable part of this article is when and how much should you run the performance testing? 
+* If you introduce, modify, or enhance one of your main features which may affect the running software heavily, you need here to run performance testing.
+* If you modify the current environment infrastructure. Also if you modify configurations which may affect the system performance.
+* Before every peak season or online event. If your service is seasonal and you expect huge traffic in some certain days or seasons, it's couraged to perform your performance testing at this point.
+An important note to be pointed to here is that's almost better to get your performance testing injected into the release pipline. So that, your performance testing plan will be automatically run before every release. But unfortunately, it's not an easy task as it may seem. There are tons of challenges to build a performance testing pipeline. You may have been built a previous automation testing plipelines for unit testing or end-to-end automation testing. But the challenges here come more and more because you need to take care more about the infrastructure and the very specific details about the platforms the system will run on. Also another huge challenge here that your performance testing will definitly break the system and let it down many times. At this checkpoit, you need to configure your pipeline to get the system up again and make sure that it's ready to receive the next load. This topic may be interesting to be the next post of this performance testing category in the future. So stay tuned :D 
 
 ## A deep look into client side performance
 
 ## Prformance testing tools
 
-## Performance testing challenges
-
 ## References
-* https://developer.mozilla.org/en-US/docs/Learn/Performance/What_is_web_performance
-* https://developers.google.com/web/fundamentals/performance/why-performance-matters
+* https://developer.mozilla.org/en-US/docs/Learn/Performance/
+* https://developers.google.com/web/fundamentals/performance/
 * https://javascript.info/onload-ondomcontentloaded
 * https://medium.com/@Pinterest_Engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7
 * https://www.nccgroup.trust/globalassets/resources/uk/case-studies/web-performance/cook-case-study.pdf
