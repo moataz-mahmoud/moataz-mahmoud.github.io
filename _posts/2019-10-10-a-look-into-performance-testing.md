@@ -121,7 +121,6 @@ According to Yahoo, around 80% of application response time is spent downloading
 
 For the past few years, we’ve been measuring page load times as a key metric for the usability of a website and the user experience it delivers. But a new performance metric has come on the scene that is less about measuring the actual time it takes for an entire page to load and more about measuring how long it takes for the page to deliver the experience the website visitor is seeking. Since the web development has got developed too much in the last few years, you now have the ability to load one or more web elements first and let the user being able to interact with them, and in background keep loading the other web elements. And here is a very important idiom shows. It's **Time To Interact or (TTI)**. It pinpoints the most critical moment in a page load; The moment the page’s primary interactive content is displayed and becomes interactive from the end user’s perspective. 
 Let's discuss the below graph to see how critical is to benchmark your TTI compared to your total load time.
-
 <p align='center'> <img src = '{{site.baseurl}}/assets/images/TTI-Graph-1.jpg'/> </p>
 
 ## Prformance testing tools
