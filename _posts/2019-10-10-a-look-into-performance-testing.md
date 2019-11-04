@@ -81,7 +81,7 @@ When I'm not a developer, so this section will be just a straight forward points
 * Download resources earlier using resource hints. rel=preload is one such resource hint that allows early fetches of critical resources before the browser would otherwise discover them. This can have a pronounced positive effect on page rendering and lowering Time to Interactive when used judiciously. rel=preconnect is another resource hint that can mask the latency of opening new connections for resources hosted on third party domains.
 * Minify your text assets. Minification is the removal of unnecessary whitespace, comments and other content in text-based resources. It significantly reduces the amount of data you send to users without impacting functionality. Use uglification in JavaScript to get more savings through shortening variable and method names.
 * Consider using code splitting in webpack to limit the amount of scripts downloaded to only what is needed by the current page or view. Separate your CSS into smaller template or component-specific files, and only include those resources where they're likely to be used.
-* Configure your server to compress resources. Compression drastically reduces the amount of data you send to users, especially text assets. GZIP is a popular option, but some tools like (Brotli)[https://github.com/google/brotli] compression can go further.
+* Configure your server to compress resources. Compression drastically reduces the amount of data you send to users, especially text assets. GZIP is a popular option, but some tools like [Brotli](https://github.com/google/brotli) compression can go further.
 
 ### From testing perspective
 
