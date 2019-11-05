@@ -139,7 +139,6 @@ Finally here we go! after all of that discussion about web performance, let's di
 Once you open the website, you will find the screen in the following view. So let's talk about all the variables you need to set to get the full report about website.
 <p align='center'> <img src = '{{site.baseurl}}/assets/images/webpagetest.png'/> </p>
 
-
 ## References
 * https://developer.mozilla.org/en-US/docs/Learn/Performance/
 * https://developers.google.com/web/fundamentals/performance/
