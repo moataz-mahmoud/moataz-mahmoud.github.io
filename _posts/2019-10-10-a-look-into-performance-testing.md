@@ -133,11 +133,6 @@ You can see that there are three main categories in this chart.
 3. **Websites with average TTI and average load time**: If you are trying to take care of the performance of your system as much as you can, most probably your website will fit in this category. Most of the msrket giants in different domains are in this category (as you can see amazon in the above chart). And in this case you need to keep working hard on improving your TTI. You may spent too much time optimizing the performance of the loading process so that the total load time isn't that high. Now you need to go to the next challenge which is how to let your customer being able to interact with your page earlier and earlier. **_So in this case (average load time and average TTI) you must use TTI to indecate how will is the performance of your website. And a very small enhancement in TTI ma lead to huge business impact either positvely or negatively._**
 >So we can conclude that load time is not always the most meaningful measure of a site’s performance. For example, while Amazon.com has a greater load time of seconds, it has a TTI which indicates that this site delivers a satisfactory user experience.
 
-Finally here we go! after all of that discussion about web performance, let's discuss the most powerful tools to measure it. We will use youtube main page in all of our tools to get the reports about it and see how much it will differ from a tool's report to another.
-* **webpagetest.org**: This tool enables you to run a free website speed test from multiple locations around the globe using real browsers (Firefox or Chrome for example) and at real consumer connection speeds. You can run simple tests or perform advanced testing including multi-step transactions, video capture, content blocking and much more. Your results will provide rich diagnostic information including resource loading waterfall charts, Page Speed optimization checks and suggestions for improvements.
-Once you open the website, you will find the screen in the following view. So let's talk about all the variables you need to set to get the full report about website.
-<p align='center'> <img src = '{{site.baseurl}}/assets/images/webpagetest.png'/> </p>
-
 ## References
 * https://developer.mozilla.org/en-US/docs/Learn/Performance/
 * https://developers.google.com/web/fundamentals/performance/
