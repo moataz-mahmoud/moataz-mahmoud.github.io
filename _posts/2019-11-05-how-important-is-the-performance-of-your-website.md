@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "How to measure the performance of your website"
+title: "How important is the performance of your website"
 date: 2019-11-05 18:46:12
 image: '/assets/img/'
 tags: [performance testing]
 categories: [performance testing]
-twitter_text: 'How to measure the performance of your website'
+twitter_text: 'How important is the performance of your website'
 ---
 
 ## Introduction
@@ -73,8 +73,10 @@ We discussed from a business overview why you should take care of your system's 
 ## How to care about web performance?
 Now after we talked a lot about the importance of the high performance of a website. Let's talk a little bit about how to care about the performance of your website as a developer. And since I'm not a developer, so this section will be just a straight forward points without so much details. But if you are more interested to know about the development perspective, you can find further readings in the references section.
 
-* Build a different mobile version of your website (opening from mobile data needs to be more conservative compared to opening from wifi).
 * Migrate to HTTP/2. HTTP/2 addresses many performance problems inherent in HTTP/1.1, such as concurrent request limits and the lack of header compression.
+* Build a different mobile version of your website (opening from mobile data needs to be more conservative compared to opening from wifi).
+* When it comes to mobile websites, we must introduce **AMP** which stands for Accelerated Mobile Pages. AMP is a web component framework and a website publishing technology developed by Google which has the mission to "provide a user-first format for web content. AMP pages are published on-line and can be displayed in most current browsers. When a standard webpage has an AMP counterpart, a link to the AMP page is usually placed in an HTML tag in the source code of the standard page. Because most AMP pages are easily discoverable by web crawlers, third parties such as search engines and other referring websites can choose to link to the AMP version of a webpage instead of the standard version. Any organization or individual can build products or features which will work on AMP pages, provided they comply with the AMP Project specifications. As of July 2017, the AMP Project's website listed around 120 advertising companies and around 30 analytics companies as AMP Project participants. Google reports that AMP pages served in Google search typically load in less than one second and use ten times less data than the equivalent non-AMP pages. CNBC reported a 75% decrease in mobile page load time for AMP Pages over non-AMP pages, while Gizmodo reported that AMP pages loaded three times faster than non-AMP pages. Some academic papers reveal that AMP pages' page load time is 2.5 times faster than non-AMP versions without pre-rendering in Google's search result page, and the AMP version is approximately nine times faster than the non-AMP version with the pre-rendering. You can find a complete and bery powerful tutorial presented by Google itself on https://amp.dev.
+* Another conecpt which is some how connected to AMP is **PWA** for Progressive Web Apps. Progressive Web Apps are user experiences that have the reach of the web, and are reliable, fast, and engaging. By reliable we mean that when launched from the user’s home screen, service workers enable a Progressive Web App to load instantly, regardless of the network state. A service worker, written in JavaScript, is like a client-side proxy and puts you in control of the cache and how to respond to resource requests. By pre-caching key resources you can eliminate the dependence on the network, ensuring an instant and reliable experience for your users. This new level of quality allows Progressive Web Apps to earn a place on the user's home screen. Progressive Web Apps are installable and live on the user's home screen, without the need for an app store. They offer an immersive full screen experience with help from a web app manifest file and can even re-engage users with web push notifications. The Web App Manifest allows you to control how your app appears and how it's launched. You can specify home screen icons, the page to load when the app is launched, screen orientation, and even whether or not to show the browser chrome. Again, Google launched a full guide about how to build your first PWA can be visited from [here](https://codelabs.developers.google.com/codelabs/your-first-pwapp).
 * Bundling your frontend. Bundling is putting all your Javascript, HTML, CSS, images, and everything else in between together in a handful of neat little files to help make your web application run smoothly. In order to assess the consequences of any such decision, it helps to understand how browsers work: When the browser processes an HTML document, it does so from top to bottom. Upon encountering a `<script>` tag, it halts (blocks) further processing in order to download the referenced script file. Only after that download has completed and the respective JavaScript code has been processed, HTML processing continues. Now it's clear that loading one file in one request is too much faster than loading multiple files in more than one request. Bundling will show you a great performance optimization. There are many powerful tools to use to accomplish this task, but the most two famous are [Webpack](https://webpack.js.org/)  and [Browserify](http://browserify.org/). You can find more readings about bundling in the references section.
 * Another key tip which helps you improve a website's performance is **cashing**. Caching is an area of a computer’s memory devoted to temporarily storing recently used information. The content, which includes HTML pages, images, files and Web objects, is stored on the local hard drive in order to make it faster for the user to access it, which helps improve the efficiency of the computer and its overall performance. Most caching occurs without the user knowing about it. In web development, when a user returns to a web page they have recently accessed, the browser can pull those files from the cache instead of the original server because it has stored the user’s activity.
 * Download resources earlier using resource hints. rel=preload is one such resource hint that allows early fetches of critical resources before the browser would otherwise discover them. This can have a pronounced positive effect on page rendering and lowering Time to Interactive when used judiciously. rel=preconnect is another resource hint that can mask the latency of opening new connections for resources hosted on third party domains.
@@ -133,23 +135,22 @@ You can see that there are three main categories in this chart.
 3. **Websites with average TTI and average load time**: If you are trying to take care of the performance of your system as much as you can, most probably your website will fit in this category. Most of the msrket giants in different domains are in this category (as you can see amazon in the above chart). And in this case you need to keep working hard on improving your TTI. You may spent too much time optimizing the performance of the loading process so that the total load time isn't that high. Now you need to go to the next challenge which is how to let your customer being able to interact with your page earlier and earlier. **_So in this case (average load time and average TTI) you must use TTI to indecate how will is the performance of your website. And a very small enhancement in TTI ma lead to huge business impact either positvely or negatively._**
 >So we can conclude that load time is not always the most meaningful measure of a site’s performance. For example, while Amazon.com has a greater load time of seconds, it has a TTI which indicates that this site delivers a satisfactory user experience.
 
-## Prformance testing tools
-Finally here we go! after all of that discussion about web performance, let's discuss the most powerful tools to measure it. We will use youtube main page in all of our tools to get the reports about it and see how much it will differ from a tool's report to another.
-* **webpagetest.org**: This tool enables you to run a free website speed test from multiple locations around the globe using real browsers (Firefox or Chrome for example) and at real consumer connection speeds. You can run simple tests or perform advanced testing including multi-step transactions, video capture, content blocking and much more. Your results will provide rich diagnostic information including resource loading waterfall charts, Page Speed optimization checks and suggestions for improvements.
-Once you open the website, you will find the screen in the following view. So let's talk about all the variables you need to set to get the full report about website.
-<p align='center'> <img src = '{{site.baseurl}}/assets/images/webpagetest.png'/> </p>
+There should be a final section about the tools which you can use to measure the web performance. But it will be a very long post if they are included in this post. So it will be detailed in the next post hopefully :D 
+Don't hesitate to share this post if you find it worthy. And if there is any further discussion, please leave in the comments section below. 
 
+See you the next month...
 
 ## References
-* https://developer.mozilla.org/en-US/docs/Learn/Performance/
-* https://developers.google.com/web/fundamentals/performance/
-* https://javascript.info/onload-ondomcontentloaded
-* https://medium.com/@Pinterest_Engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7
-* https://www.nccgroup.trust/globalassets/resources/uk/case-studies/web-performance/cook-case-study.pdf
-* https://www.creativebloq.com/features/how-the-bbc-builds-websites-that-scale
-* https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/
-* https://medium.com/@PurpleGreenLemon/understanding-the-concept-of-bundling-for-beginners-f2db1adad724
-* https://www.innoq.com/en/blog/loading-javascript/#fn:2
-* https://kinsta.com/learn/page-speed/
-* https://conversionxl.com/blog/two-overlooked-aspects-site-design-may-hurting-conversions/?__hstc=229822019.07430159d50a3c91e72c280a7921bf0d.1542499200129.1542499200130.1542499200131.1&__hssc=229822019.1.1542499200132&__hsfp=99862880
+* [Mozilla performance guide](https://developer.mozilla.org/en-US/docs/Learn/Performance/)
+* [Google developers performance guide](https://developers.google.com/web/fundamentals/performance/)
+* [Page: DOMContentLoaded, load, beforeunload, unload](https://javascript.info/onload-ondomcontentloaded)
+* [Driving user growth with performance improvements](https://medium.com/@Pinterest_Engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7)
+* [Cook web performance case study](https://www.nccgroup.trust/globalassets/resources/uk/case-studies/web-performance/cook-case-study.pdf)
+* [How the BBC builds websites that scale](https://www.creativebloq.com/features/how-the-bbc-builds-websites-that-scale)
+* [Mobile speed matters](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)
+* [Understanding the concepf of bundling for beginners](https://medium.com/@PurpleGreenLemon/understanding-the-concept-of-bundling-for-beginners-f2db1adad724)
+* [Loading JavaScript in details](https://www.innoq.com/en/blog/loading-javascript/#fn:2)
+* [Characterizing the Impact of Google’s Accelerated Mobile](http://aqualab.cs.northwestern.edu/wp-content/uploads/2019/02/AMP-Mobicom-2019.pdf)
+* [A Beginner’s Guide to Website Speed Optimization](https://kinsta.com/learn/page-speed/)
+* [Two overlooked aspects site design may hurting conversions](https://conversionxl.com/blog/two-overlooked-aspects-site-design-may-hurting-conversions/?__hstc=229822019.07430159d50a3c91e72c280a7921bf0d.1542499200129.1542499200130.1542499200131.1&__hssc=229822019.1.1542499200132&__hsfp=99862880)
 
