@@ -43,7 +43,7 @@ The lifecycle of an HTML page has three important events:
 
 There are many other in between events, but when we are talking about web performance those three are the most important events to take care of.
 
-## Why we care about web perofrmance?
+## Why do we care about web perofrmance?
 To recognize the impact of the web performance, we can say that start building a website without taking care of it's performance is like opening a cafe without taking care about the service. As well as you need to serve your visitors in the cafe, you need to serve your web visitors. Not only that. Building a website with not information about the maximum number of users who can access it in a single point of time is like opening a cafe with no preparation for the over visits of the weekend. The prepared cafe for a crowded weekend can increase his staff faster, modify his decore to receive more visitors more flexible, keep the tension level as minimum as possible in the rush hours, and so on. It's identically the case for your website... 
 
 Now let's take CNN website as a case study. 
