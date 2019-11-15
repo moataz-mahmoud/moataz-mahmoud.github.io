@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "how-important-is-the-performance-of-your-website"
+title: "how important is the performance of your website"
 date: 2019-11-12 16:10:23
 image: '/assets/img/'
 tags: [performance testing]

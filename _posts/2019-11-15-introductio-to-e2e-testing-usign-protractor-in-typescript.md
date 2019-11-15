@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "introductio-to-e2e-testing-usign-protractor-in-typescript"
+title: "introductio to e2e testing usign protractor in typescript"
 date: 2019-11-15 15:03:37
 image: '/assets/img/'
 description: Writing e2e testing scripts using Protractor in TypeScript (Part One)
