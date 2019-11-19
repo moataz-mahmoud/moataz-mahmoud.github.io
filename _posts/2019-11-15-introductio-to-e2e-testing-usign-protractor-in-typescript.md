@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "E2e testing usign protractor in typescript - Part 1: Introduction"
+title: "E2e testing usign Protractor in TypeScript - Part 1: Introduction"
 date: 2019-11-15 15:03:37
 image: '/assets/img/'
-description: Writing e2e testing scripts using Protractor in TypeScript (Part One)
+description: Introduction to why and how to write e2e using protractor in Typescript
 tags: [end-to-end testing, JavaScript, TypeScript, Protractor]
 categories: [end-to-end testing, JavaScript, TypeScript, Protractor]
-twitter_text: Writing e2e testing scripts using Protractor in TypeScript (Part One)
+twitter_text: E2e testing usign Protractor in TypeScript - Part 1 (Introduction)
 ---
 
 ## Motivation
@@ -14,14 +14,35 @@ Ten years ago, websites tended to offer a very specific series for the users. Bu
 
 The more websites get more complex, the more release process turns into headache. Until some stages, where the release may turn literally into a nightmare. And one wsteps into the road to get rid of that nightmare is to use test automation. In the normal process of release, you are interested in two testing processes. The first one is testing the release tasks and all the areas of the software which may be affected with those tasks. And other one is testing the whole software to make sure that the new features didn't harm the software in any of its parts deliberately or not. We call this type of testing **regression testing**. Testing the release task could be done manually easily (when it's preferred to be done automative), but the regression testing is not efficient to be done manually. Most of time, your system has many thousands of test cases. Running all of them manually every release consumes too much time. Also if you had the time, the eyes of the testing team get used to the function of the system. So they assume that all the parts of the system that were working well in the previous releases will work normally here. Especially those features which we didn't edit them. But the actual result may differ.
 
->> As conclusion, we need to develop automation test plan for the regression testing automating all the test cases which we need to run every release.
+> As conclusion, we need to develop automation test plan for the regression testing automating all the test cases which we need to run every release.
 
 ## What's end-to-end testing?
-When we are talking about web based automation testing. There are many stages you as a software tester should implement automation testing. The first stage and the most straight forward is to try to simulate every simple action that your website user can do from the browser. This type of testing is called **end-to-end testing** or simple e2e.  The second stage is the API testing level. At this stage you simply write automation scripts to test the expected response of every end point in your system. At another stage you do the integration testing. At the complex systems, the developers implement unit tests to test every component isolated to the system (in all the systems actullay they should not only the complex ones). So the development team sends you a collection of components every one is confirmed that it's working as expected on its own. And you as a tester should develop scripts to make sure that those components will be coherent when they are talking to each other. 
+When we are talking about web based automation testing. There are many stages you as a software tester should implement automation testing. The first stage and the most straight forward is to try to simulate every simple action that your website user can do from the browser. This type of testing is called **end-to-end testing** or simply e2e.  The second stage is the API testing level. At this stage you simply write automation scripts to test the expected response of every end point in your system. At another stage you do the integration testing. At the complex systems, the developers implement unit tests to test every component isolated to the system (in all the systems actullay they should not only the complex ones). So the development team sends you a collection of components every one is confirmed that it's working as expected on its own. And you as a tester should develop scripts to make sure that those components will be coherent when they are talking to each other. 
 
 This series will focus only on the first stage which is e2e. May be we cover the other stages later.
 
 ## Why to use Protractor
+It's no secret to anyone that Selenium is the most popular tool to be used in e2e automation. There are two main reasons behind that popularity. First, it was the first major stable tool appeared. So the testers started using it heavily before the other frameworks come to the arena. And step by step it becomes harder and harder to replace the old code written in Selenium by any other new framework. The other reason that it supports many programming languaeg. And mostly, the testers aren't the best programmers in the field. So as a tester, you may have a hands-on experience only coding in one or two programming language. So it's easier and more practical for you to start using a tool with whatever the programming languaeg you know that learning a completely new programming language to start automating in another framework.
+But let's talk more practically, is Selenium really the best option? For me, at least, nope! Protractor is better for me and more practical. And here are some reasons why Protractor is my favorite pick: 
+
+* **Protractor works perfectly for both angular and non angular apps:** Protractor was built basically to test angular pages. But it's no longer than a few months until they make it supports non-angular pages with only a small flag added to the config file. In case of Selenium, it was built for testing the non-angular pages, but when it comes to angular ones, it suffers. Selenium will work in angularjs , but it will get synchronisation issues. Selenium WebDriver code is not friendly for Behaviour Driven Development such as jasmine and mocha. Angularjs needs to identify the elements which are not recognized by Selenium for ex: ng-model, css, ... etc. But in Selenium Webdriver this can be achieved only via the required identifiers or unique class to access the elements. It takes more effort and time, when does the same in Selenium. Someone may say that Protractor uses Selenium webdriver and it uses the Selenium js driver with its own wrapper to support angular context helper methods, but why we need to prefer use of Protractor than Selenium for testing Angular and Angularjs applications? Well, it's true that Protractor uses Selenium js driver with its own wrapper, but Protractor provides some new locating strategies which are very helpful to automate the Angular applications. For example, Protractor provides you with waitForAngular, By.binding, By.repeater, By.testarea, By.model, ... etc. Sometimes it is difficult to capture the web elements in AngularJS applications using JUnit or Selenium Webdriver. Protractor supports Angular-specific locator strategies, which allows you to test Angular-specific elements without any setup effort on your part. Also, Protractor has the addLocator function to help you add your own locators. So that, for a fictional example, you can get elements by their handlebars properties.
+* **Protractor is much easier to develop:** To discover how easier Protractor development compared to Selenium (regardless your knowledge in JavaScript), go ahead and spot the differences between this example written once in Protractor and another with Selenium.
+``` JavaScript
+describe('angularjs homepage', function() {
+    it('should add one and two', function() {
+        browser.get('http://juliemr.github.io/protractor-demo/');
+        element(by.model('first')).sendKeys(1);
+        element(by.id('gobutton')).click();
+        expect(element(by.binding('latest')).getText()).
+             toEqual('3');
+    });
+});
+``` 
+* **Protractor was built by a team in Google and released to open source:** 
+* **Protractor is written in JavaScript which is dynamically typed:**
+* **Protracor is much faster than Selenium:**
+* **It is easy to set up page objects:** Protractor does not perform WebDriver commands till an action is needed, i.e., set up page objects so that tests can operate page elements without moving the HTML.
+
 
 ## Why to write in TypeScript
 
