@@ -26,7 +26,8 @@ This series will focus only on the first stage which is e2e. May be we cover the
 ## End-to-end testing workflow
 
 When we are building test scripts, there are three main layers in the architecture.  
-
+Here is a picture which shows the 3 main component of a testing framework
+<p align='center'> <img src = '{{site.baseurl}}/assets/images/e2e-workflow.jpg'/> </p>
 1. **Real Browser:** You must have at least one of the browsers installed on the machine to be able to create and run the tests. It’s recommended to install all the browsers that your clients will use.
 2. **Selenium WebDriver:** For every real browser, there is a Selenium driver. For example, if you want to run your tests against Google Chrome, you need to install Selenium’s Chrome WebDriver. And so on ...  
 3. **Testing Bindings:** Here is where our comparison fits in. Whatever we will use Selenium Java or any of the JavaScript libraries, you MUST have the above two layers. Then, you need to use one of the automation tools. Either to use one of the Selenium’s extensions. And in this area, Java is the most powerful option (to be discussed in detail below). The other option you can use one of the JavaScript libraries that can do the job for you. There are many options here too. You can use Protractor, TestCafe, or Cypress.
