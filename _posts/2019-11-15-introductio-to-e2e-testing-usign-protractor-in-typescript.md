@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "E2e testing usign Protractor in TypeScript - Part 1: Introduction"
+title: "E2e testing using Protractor in TypeScript - Part 1: Introduction"
 date: 2019-11-15 15:03:37
 image: '/assets/img/'
 description: Introduction to why and how to write e2e using protractor in Typescript
@@ -76,9 +76,10 @@ test.describe('Google Search', function() {
 
 You can see the huge difference between the ease of development and the readibility as a result. No need to point to which is the Protractor snippet and which is the Selenium. The first one is the Protractor of course.
 
-* **Protractor was built by a team in Google and released to open source:**
-* **Protractor is written in JavaScript which is dynamically typed:**
-* **Protracor is much faster than Selenium:**
+* **You don’t need to add waits or sleeps to your test:** Protractor can communicate with your AngularJS app automatically and execute the next step in your test the moment the webpage finishes pending tasks, so you don’t have to worry about waiting for your test and webpage to sync.
+* **Protractor is written in JavaScript which is dynamically typed:** There are too many advantages of using dynamically typed languages in test automation, but the main power is that there is no compile time. In a static typing language, every time you change a single command in your code you need to build it again. But in the dynamically typed languages, there is no more such a burden. Everytime you change your code and run, the interpreter won't generate a byte code from scratch, it will just start running your code line by line with no need to take the overhead of compilation time. You can get more details about this from [this magnificent paper](https://tratt.net/laurie/research/pubs/papers/tratt__compile-time_meta-programming_in_a_dynamically_typed_oo_language.pdf). What's really impressing when using Protractor, that you have the option to use JavaScript directly which is a dynamically typed language, or start writing in TypeScript which is a statically typed one. So you have the luxury of selecting the more suitable option for your project.
+* **Protracor is much faster than Selenium:** You remember the previous example which is written above once in Protractor and another in Selenium? When I tried to run it, it took 11 seconds in case of Protractor compared to 20 seconds for Selenium. Actually, whatever the test that you are running, if you tried to write in once in Protractor and another in Selenium, you will find that most of the cases there is a huge difference in the running tim between Protractor and Selenium.
+* **Using Jasmine:** Protractor uses Jasmine, the framework you use to write AngularJS unit tests. And Javascript, the same language you use to write AngularJS apps.
 * **It is easy to set up page objects:** Protractor does not perform WebDriver commands till an action is needed, i.e., set up page objects so that tests can operate page elements without moving the HTML.
 
 ## Why to write in TypeScript
