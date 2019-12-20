@@ -127,8 +127,7 @@ We will add our dependencies in the bottom of this file, after the last line `"l
 
 In the dependencies section we are defining three main frameworks. The first is **Protractor**, which is the framework we will use to write the e2e tests. The second is Jasmine. **Jasmine** is a behavior-driven development framework for testing JavaScript code. It does not depend on any other JavaScript frameworks. It does not require a DOM. And it has a clean, obvious syntax so that you can easily write tests. And finally **TypeScript**. TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It supports any browser, any host, any OS, and it's open source as well. TypeScript compiles to clean, simple JavaScript code which runs on any browser, in Node.js, or in any JavaScript engine that supports ECMAScript 3 (or newer). TypeScript offers support for the latest and evolving JavaScript features, including those from ECMAScript 2015 and future proposals, like async functions and decorators, to help build robust components.
 > There are two **BIG** advantages to use TypeScript instead of plain JavaScript. The first is intelliSense. IntelliSense is a code-completion aid that includes a number of features: List Members, Parameter Info, Quick Info, and Complete Word. These features help you to learn more about the code you're using, keep track of the parameters you're typing, and add calls to properties and methods with only a few keystrokes.
+
 > And the second main advantage is that TypeScript supports OOP originally. But you may ask why it's that important to use OOP in an e2e test framework? Well, this point will be discussed in the next post when it comes to discussing the (POM) Page Object Models section.
-
-
 
 ## Writing your first test
