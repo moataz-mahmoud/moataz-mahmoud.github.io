@@ -132,6 +132,18 @@ In the dependencies section we are defining three main frameworks. The first is 
 
 After adding your dependencies to the package.json file, you now need to install them. And to do that all what you need is just going to the terminal and type `npm install`. This command will install all the dependencies that are included in the package.json file and it's not installed before. So in case that there is a tool installed before -as for protractor in our case- the npm will review the version and set the current project to the mentioned version in the package.json file.
 
+In addition to add the dependencies, we need also to edit the `scripts` section. This section shows what are the scripts to be run when this project is run. Edit the scripts file to something like that:
+
+```json
+"scripts": {
+    "tsc": "tsc",
+    "pretest": "npm run tsc",
+    "test": "protractor convertedjs/specs/config.js"
+  },
+```
+
+The first script is the transpiler and will be discussed in detail in a few lines. The last script is the name of your test and it will be a shorthand to the traditional way to run a protractor test. To run a protractor test you need to type `protractor config.js` where config.js is the configuration file of your tests (will be discussed in the next section). But just to abreviate it every time in the running, we map `protractor path/to/configuration/file` to a placeholder which is simply "test". You can use any placeholder according to the feature that you are testing. For example it may be "login" for login test script, "dashboard" for dashboard test script and so on. We will take a look a little bit later about running the project, don't worry! Just edit the scripts section and jump to the next part.
+
 You can see that once you run `npm install` for the first time, npm creates a `node_modules` folder to save all the installed dependencies in it. So if you open that node_modules folder, you will find too many subfolders including the dependencies you have installed. Now, in node_modules > typescript > bin folder, you will find a tsc file. This file is called the **transpiler**. The function of that transpiler is simple. It just converts the written TypeScript into JavaScript. As you may know, TypeSctipt can't be run directly to a machine. It needs an intermediate layer to transfer it to JavaScript and then run the JavaScript. But wait a minute! Why to write in TypeScript when it will be converted to JavaScript at the end? Why not to use JavaScript directly? The reason is developing in TypeScript is more features-rich. As we mentioned before, it supports intellisence and has OOP by its nature. So you will get the advantage of those features and write from your end in TypeScript. And don't bother with the running process. All what you need is just call the transpiler and it will translate the written TypeScript to JavaScript and run it. Also after we will try this feature, we will find that the generated JavaScript is much much more readible for the machine more than any JavaScript that any human being can develop. Yes it's less human-readibly, but it doesn't matter. You won't need to read the converted JavaScript. All your focus will be on TypeScript.
 
 I understand that at the first glance it may be a little bit confusing. But believe me, you will feel how easy it is once you start use it. So don't hurry *;)*
@@ -145,9 +157,20 @@ Now we need to configure this project's transpiler. And to do so we need to use 
     "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
     "strict": true,                           /* Enable all strict type-checking options. */
     "esModuleInterop": true,                  /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
-    "forceConsistentCasingInFileNames": true,  /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   }
 }
 ```
+
+No need to go into the details of those options. They are just auto-generated configurations auto generated for getting the transpiler works properly. All the needed here is to add the two following configurations to the end of the CompilerOptions list.
+
+```json
+    "outDir": "convertedjs",
+    "types": ["jasmine", "node"]
+```
+
+The first configuration is telling the transpiler where to store the generated converted JavaScript. In this case, it will generate a folder in the main directory of the application with name "outDir". This folder will be created for the first time to run the transpiler. And every further time it will run, will generate a new 'convertedjs' directory replacing the old one. And the next configuration is just telling the transpiler to rely on node and jasmine in the transpiling process.
+
+If we run the transpiler in this way, all the code written in TypeScript in our project will be converted to JavaScript. But we don't need the node_modules to be converted. So we will add the last configuration to the end of the config file and outside the CompilerOptions list. This last configuration will be `"execlude": ["node_modules"]`.
 
 ## Writing your first test
