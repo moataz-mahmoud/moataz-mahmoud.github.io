@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "E2e testing using Protractor in TypeScript - Part 1: Introduction"
+title: "E2e testing using Protractor in TypeScript - Part 1: Build the simplest test!"
 date: 2019-11-15 15:03:37
 image: '/assets/img/'
-description: Introduction to why and how to write e2e using protractor in Typescript
+description: Introduction to why and how to write e2e tests using protractor in Typescript
 tags: [end-to-end testing, JavaScript, TypeScript, Protractor]
 categories: [end-to-end testing, JavaScript, TypeScript, Protractor]
-twitter_text: E2e testing usign Protractor in TypeScript - Part 1 (Introduction)
+twitter_text: E2e testing usign Protractor in TypeScript - Part 1 (Build the simplest test!)
 ---
 
 ## Motivation
@@ -128,7 +128,7 @@ We will add our dependencies in the bottom of this file, after the last line `"l
 In the dependencies section we are defining three main frameworks. The first is **Protractor**, which is the framework we will use to write the e2e tests. The second is Jasmine. **Jasmine** is a behavior-driven development framework for testing JavaScript code. It does not depend on any other JavaScript frameworks. It does not require a DOM. And it has a clean, obvious syntax so that you can easily write tests. And finally **TypeScript**. TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It supports any browser, any host, any OS, and it's open source as well. TypeScript compiles to clean, simple JavaScript code which runs on any browser, in Node.js, or in any JavaScript engine that supports ECMAScript 3 (or newer). TypeScript offers support for the latest and evolving JavaScript features, including those from ECMAScript 2015 and future proposals, like async functions and decorators, to help build robust components.
 > There are two **BIG** advantages to use TypeScript instead of plain JavaScript. The first is intelliSense. IntelliSense is a code-completion aid that includes a number of features: List Members, Parameter Info, Quick Info, and Complete Word. These features help you to learn more about the code you're using, keep track of the parameters you're typing, and add calls to properties and methods with only a few keystrokes.
 
-> And the second main advantage is that TypeScript supports OOP originally. But you may ask why it's that important to use OOP in an e2e test framework? Well, this point will be discussed in the next post when it comes to discussing the (POM) Page Object Models section.
+> And the second main advantage is that TypeScript supports OOP originally. But you may ask why it's that important to use OOP in an e2e test framework? Well, this point will be discussed in the last section when it comes to discussing the (POM) Page Object Models section.
 
 After adding your dependencies to the package.json file, you now need to install them. And to do that all what you need is just going to the terminal and type `npm install`. This command will install all the dependencies that are included in the package.json file and it's not installed before. So in case that there is a tool installed before -as for protractor in our case- the npm will review the version and set the current project to the mentioned version in the package.json file.
 
@@ -174,3 +174,25 @@ The first configuration is telling the transpiler where to store the generated c
 If we run the transpiler in this way, all the code written in TypeScript in our project will be converted to JavaScript. But we don't need the node_modules to be converted. So we will add the last configuration to the end of the config file and outside the CompilerOptions list. This last configuration will be `"execlude": ["node_modules"]`.
 
 ## Writing your first test
+
+After a pretty long journey of configuring the project, finally here we are to start writing a sample test :D. This part of the turorial just implements a very simple test case. And in the next parts of the tutorial, more advanced test cases will be implemented.
+
+The simple test case will be just opening the website that you are currently reading this article on, and expect that the main title of it is **Moataz Mahmoud**. To do that, we will create two directories in the main project directory. One with name "POMs" -stands for Page Object Models-. And the other one is "specs". The first folder will contain all the page objects in the test project. And the second folder will contain all the test cases in the project with their configuration. Let's talk about every one in detail. In other words, as e2e is all about implementing all the user scenarios, all the script will do is locating elements and interacting with them. The process of locating the elements will be included in the POMs. And the process of building a method for every possible element interaction will be also created in the POMs but be used in the specs.
+
+### Page Object Models
+
+The idea of POMs is considered as a best practice in the software development world. The idea simply is isolating the web elements the script will locate and the methods that will be interacting with them from the rest of the application. And encapsulate them in The main reason behind that is not to get the chance to any script to get the chance to any component of the code to change the item locators. **You can say that the locators are the most valuable and sensitive values in the e2e process as whole. So we are protecting them**. So build a private variable for each web element, and create as much public accessors as needed to deal with that web element. So if there is a button, obviously you will need to click on it. So create a private variable to locate that button, and a public method to click on it.
+
+In our case, we need to locate only one element in one page. We need to locate the element which contains the title in the landing page. So in the POMs directory, create the LandingPage.ts class. And then add one element to it called websiteTitle for example. So the LandingPage.ts file will be something like:
+
+```typescript
+import  { element, by } from 'protractor'
+
+export class LandingPage {
+    private websiteTitle = element(by.css('site-title'))
+}
+```
+
+Regarding to the first line, it's to import element and by objects from the protractor module. When we are using VSCode and TypeScript, so we can use the auto-complete and auto-import features. All what you need to auto-import any library from any defined module in the node_modules is to type its name and click ctrl + space which is the default auto-complete shortcut in VSCode and automatically it will be imported for you. Do that with both element and by keywords, and the first line will be auto-generated.
+
+### Specs
