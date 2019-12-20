@@ -204,3 +204,27 @@ Now the need to creat a method to deal with that element. Again we don't need to
 That's all for the simple LandingPage page object model. Let's move to creating the runner to check this test case.
 
 ### Specs
+
+In the specs directory, we will create a subdirectory for each test suite. In this example there is only one test suite -which actually contains only one test case-. So there will be only one subdirectory -for now- called for "landing-page" for example. This subirectory will contain only two files, one for the configuration and another for the actual specs. Let's discuss each one on its onw.
+
+#### The config file
+
+This config file will hold some data like the browser to run the tests with, the test to be run, and the selenium web address. Protractor supports a huge set of known browser. We will use Google Chrome in our case, but feel free to use any other browser. The specs to be run here is only 'test.js'. Note that it's 'test.js' not 'test.ts'. Again, you can't run a TypeScript file directly. Instead you generate a converted JavaScript version and run it. The last option is the selenium address which is all the time should be set to: http://localhost:4444/wd/hub. So the final view of the config file should be: 
+
+```typescript
+import { Config } from "protractor"
+
+export let config: Config = {
+    capabilities: {
+        browserName: "chrome",
+        unexpectedAlertBehaviour: 'accept',
+        chromeOptions: {
+            args: ["--start-maximized"]
+        }
+    },
+
+    specs: ['test.js'],
+
+    seleniumAddress: 'http://localhost:4444/wd/hub',
+}
+```
