@@ -91,6 +91,8 @@ The next step is to install Protractor. And it can be simply done from the termi
 
 `npm install -g protractor`
 
-This will install two command line tools, protractor and webdriver-manager. Try running `protractor --version` to make sure it's working. The webdriver-manager is a helper tool to easily get an instance of a Selenium Server running. At the very early beginning, you should be able to use it to download the necessary binaries with: `webdriver-manager update`
+This will install two command line tools, protractor and webdriver-manager. Try running `protractor --version` to make sure it's working. The webdriver-manager is a helper tool to easily get an instance of a Selenium Server running. At the very early beginning, you should be able to use it to download the necessary binaries with `webdriver-manager update`
+
+The next tool to be installed is VSCode. It's not mandatory to use VSCode. You can use whatever text editor you like, when of cource VSCode is one of the best and richest with its huge set of plugins and extensions. Its installation process is straight forward. All you need is just download the suitable version according to your operating system from [here](https://code.visualstudio.com/download) and then install it as you do for any software tool on your machine.
 
 ## Writing your first test
