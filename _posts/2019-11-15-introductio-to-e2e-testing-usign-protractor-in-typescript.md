@@ -88,6 +88,7 @@ In order to write protractor tests the only mandatory prerequisite is getting pr
 The first thing to install is node.js. And you can find a full guide to install it on whatever platform through [this tutorial](https://nodejs.org/en/download/package-manager/).
 To make sure that node is installed on your version, just open your terminal and type `npm --version`.
 The next step is to install Protractor. And it can be simply done from the terminal by the following command:
+
 `npm install -g protractor`
 
 ## Writing your first test
