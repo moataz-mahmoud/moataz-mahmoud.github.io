@@ -93,6 +93,24 @@ The next step is to install Protractor. And it can be simply done from the termi
 
 This will install two command line tools, protractor and webdriver-manager. Try running `protractor --version` to make sure it's working. The webdriver-manager is a helper tool to easily get an instance of a Selenium Server running. At the very early beginning, you should be able to use it to download the necessary binaries with `webdriver-manager update`
 
-The next tool to be installed is VSCode. It's not mandatory to use VSCode. You can use whatever text editor you like, when of cource VSCode is one of the best and richest with its huge set of plugins and extensions. Its installation process is straight forward. All you need is just download the suitable version according to your operating system from [here](https://code.visualstudio.com/download) and then install it as you do for any software tool on your machine.
+The next tool to be installed is VSCode. It's not mandatory to use VSCode. You can use whatever text editor you like, when of cource VSCode is one of the best and richest with its huge set of plugins and extensions. We will work through this tutorial on VSCode, but it will be highly similar to the other text editors. Its installation process is straight forward. All you need is just download the suitable version according to your operating system from [here](https://code.visualstudio.com/download) and then install it as you do for any software tool on your machine.
+
+Now we will work step by step on how to create a new test project and configure it to be able to use TypeScript to write your first Protractor test.
+
+The first step will be to create a folder for your test project. Then open this folder using VSCode, and click `ctrl + ~` to open the terminal. Again type `npm -v` to make sure that your project can see the globally installed version of node. Now type `npm init`. This command is to initialize the project for you. And after this command runs successfully, you can find that there is a package.json file got created for you. By default the content of this file should be something like that:
+
+``` JSON
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+```
 
 ## Writing your first test
