@@ -40,7 +40,7 @@ But let's talk more practically, is Selenium really the best option? For me, at 
 * **Protractor works perfectly for both angular and non angular apps:** Protractor was built basically to test angular pages. But it's no longer than a few months until they make it supports non-angular pages with only a small flag added to the config file. In case of Selenium, it was built for testing the non-angular pages, but when it comes to angular ones, it suffers. Selenium will work in angularjs , but it will get synchronisation issues. Selenium WebDriver code is not friendly for Behaviour Driven Development such as jasmine and mocha. Angularjs needs to identify the elements which are not recognized by Selenium for ex: ng-model, css, ... etc. But in Selenium Webdriver this can be achieved only via the required identifiers or unique class to access the elements. It takes more effort and time, when does the same in Selenium. Someone may say that Protractor uses Selenium webdriver and it uses the Selenium js driver with its own wrapper to support angular context helper methods, but why we need to prefer use of Protractor than Selenium for testing Angular and Angularjs applications? Well, it's true that Protractor uses Selenium js driver with its own wrapper, but Protractor provides some new locating strategies which are very helpful to automate the Angular applications. For example, Protractor provides you with waitForAngular, By.binding, By.repeater, By.testarea, By.model, ... etc. Sometimes it is difficult to capture the web elements in AngularJS applications using JUnit or Selenium Webdriver. Protractor supports Angular-specific locator strategies, which allows you to test Angular-specific elements without any setup effort on your part. Also, Protractor has the addLocator function to help you add your own locators. So that, for a fictional example, you can get elements by their handlebars properties.
 * **Protractor is much easier to develop:** To discover how easier Protractor development compared to Selenium (regardless your knowledge in JavaScript), go ahead and spot the differences between this example written once in Protractor and another with Selenium.
 
-```javascript
+```typescript
 describe('Google Search', function() {
     it('should work', function() {
         browser.get('http://www.google.com');
@@ -51,7 +51,7 @@ describe('Google Search', function() {
 });
 ```
 
-```javascript
+```typescript
 var assert = require('assert'),
     test = require('selenium-webdriver/testing'),
     webdriver = require('selenium-webdriver');
@@ -99,7 +99,7 @@ Now we will work step by step on how to create a new test project and configure 
 
 The first step will be to create a folder for your test project. Then open this folder using VSCode, and click `ctrl + ~` to open the terminal. Again type `npm -v` to make sure that your project can see the globally installed version of node. Now type `npm init`. This command is to initialize the project for you. And after this command runs successfully, you can find that there is a package.json file got created for you. By default the content of this file should be something like that:
 
-```typescript
+```json
 {
   "name": "test",
   "version": "1.0.0",
@@ -138,7 +138,7 @@ In addition to add the dependencies, we need also to edit the `scripts` section.
 "scripts": {
     "tsc": "tsc",
     "pretest": "npm run tsc",
-    "test": "protractor convertedjs/specs/config.js"
+    "test": "protractor convertedjs/specs/landing-page/config.js"
   },
 ```
 
@@ -189,11 +189,11 @@ In our case, we need to locate only one element in one page. We need to locate t
 import  { element, by } from 'protractor'
 
 export class LandingPage {
-    private websiteTitle = element(by.css('site-title'))
+    private websiteTitle = element(by.css('.site-title'))
 }
 ```
 
-Regarding to the first line, it's to import element and by objects from the protractor module. When we are using VSCode and TypeScript, so we can use the auto-complete and auto-import features. All what you need to auto-import any library from any defined module in the node_modules is to type its name and click ctrl + space which is the default auto-complete shortcut in VSCode and automatically it will be imported for you. Do that with both element and by keywords, and the first line will be auto-generated.
+Regarding to the first line, it's to import element and by objects from the protractor module. When we are using VSCode and TypeScript, so we can use the auto-complete and auto-import features. All what you need to auto-import any library from any defined module in the node_modules is to type its name and click ctrl + space which is the default auto-complete shortcut in VSCode and automatically it will be imported for you. Do that with both element and by keywords, and the first line will be auto-generated. Don't panic with the selection method and what that element and by keywords work. It's the topic of the next post.
 
 Now the need to creat a method to deal with that element. Again we don't need to let any other component from outside the landing page to be able to change the contents of the websiteTitle variable. So it's made as a private member and will create a public method to let the meant specs file to be able to interact with it. And in this point, all what we need from the websiteTitle is to get its contained text. So here is a function to get it. This function won't be marked as private or public because the default access modifier in TypeScript is public.
 
@@ -209,7 +209,7 @@ In the specs directory, we will create a subdirectory for each test suite. In th
 
 #### The config file
 
-This config file will hold some data like the browser to run the tests with, the test to be run, and the selenium web address. Protractor supports a huge set of known browser. We will use Google Chrome in our case, but feel free to use any other browser. The specs to be run here is only 'test.js'. Note that it's 'test.js' not 'test.ts'. Again, you can't run a TypeScript file directly. Instead you generate a converted JavaScript version and run it. The last option is the selenium address which is all the time should be set to: http://localhost:4444/wd/hub. So the final view of the config file should be: 
+This config file will hold some data like the browser to run the tests with, the test to be run, and the selenium web address. Protractor supports a huge set of known browser. We will use Google Chrome in our case, but feel free to use any other browser. The specs to be run here is only 'test.js'. Note that it's 'test.js' not 'test.ts'. Again, you can't run a TypeScript file directly. Instead you generate a converted JavaScript version and run it. The selenium address is also been set here and all the time it should be set to: <http://localhost:4444/wd/hub>. The final component of the configuration file is the parameters. The idea behind this parameter section is to keep a single point of contact to them, as well as keep them shared between all the files which can access that configuration file. For example, in our case there will be a base URL parameter which holds the URL of the website where the test cases will run against. If we kept it only in a specific file, so it will be only accessible to its contents. So we can say that the params section is where we store the global variables of project. The final view of the config file should be:
 
 ```typescript
 import { Config } from "protractor"
@@ -223,8 +223,26 @@ export let config: Config = {
         }
     },
 
-    specs: ['test.js'],
+    specs: ['LandingTest.js'],
 
     seleniumAddress: 'http://localhost:4444/wd/hub',
 }
+```
+
+#### the spec file
+
+```typescript
+import { LandingPage } from "../../POMs/LandingPage";
+import { browser } from "protractor";
+
+let landingPage: LandingPage
+
+describe('landing page test case: ', () => {
+    it('expecting the title of the blog to be "Moataz Mahmoud"', () => {
+        landingPage = new LandingPage()
+        browser.waitForAngularEnabled(false);
+        browser.get(browser.params.baseURL)
+        expect(landingPage.getWebsiteTitle().getText()).toContain('Moataz Mahmoud')
+    })
+})
 ```
