@@ -82,10 +82,12 @@ You can see the huge difference between the ease of development and the readibil
 * **Using Jasmine:** Protractor uses Jasmine, the framework you use to write AngularJS unit tests. And Javascript, the same language you use to write AngularJS apps.
 * **It is easy to set up page objects:** Protractor does not perform WebDriver commands till an action is needed, i.e., set up page objects so that tests can operate page elements without moving the HTML.
 
-## Why to write in TypeScript
-
-## Prerequisites
-
 ## Getting things ready
 
-## Sample test
+In order to write protractor tests the only mandatory prerequisite is getting protractor installed. And to get protractor install all what you need is node installed on your machine. But there are many other components that can ease the process of development. So first of all let's get node and protractor installed and then install the other preferences.
+
+``` console
+npm install -g protractor
+```
+
+## Writing your first test
