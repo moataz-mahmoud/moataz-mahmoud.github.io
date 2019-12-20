@@ -84,10 +84,6 @@ You can see the huge difference between the ease of development and the readibil
 
 ## Getting things ready
 
-In order to write protractor tests the only mandatory prerequisite is getting protractor installed. And to get protractor install all what you need is node installed on your machine. But there are many other components that can ease the process of development. So first of all let's get node and protractor installed and then install the other preferences.
-
-``` console
-npm install -g protractor
-```
+In order to write protractor tests the only mandatory prerequisite is getting protractor installed. And to get protractor install all what you need is node installed on your machine. But there are many other components that can ease the process of development. So first of all let's get node and protractor installed and then install the other preferences. `npm install -g protractor`
 
 ## Writing your first test
