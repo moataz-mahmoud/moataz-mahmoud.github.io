@@ -134,6 +134,20 @@ After adding your dependencies to the package.json file, you now need to install
 
 You can see that once you run `npm install` for the first time, npm creates a `node_modules` folder to save all the installed dependencies in it. So if you open that node_modules folder, you will find too many subfolders including the dependencies you have installed. Now, in node_modules > typescript > bin folder, you will find a tsc file. This file is called the **transpiler**. The function of that transpiler is simple. It just converts the written TypeScript into JavaScript. As you may know, TypeSctipt can't be run directly to a machine. It needs an intermediate layer to transfer it to JavaScript and then run the JavaScript. But wait a minute! Why to write in TypeScript when it will be converted to JavaScript at the end? Why not to use JavaScript directly? The reason is developing in TypeScript is more features-rich. As we mentioned before, it supports intellisence and has OOP by its nature. So you will get the advantage of those features and write from your end in TypeScript. And don't bother with the running process. All what you need is just call the transpiler and it will translate the written TypeScript to JavaScript and run it. Also after we will try this feature, we will find that the generated JavaScript is much much more readible for the machine more than any JavaScript that any human being can develop. Yes it's less human-readibly, but it doesn't matter. You won't need to read the converted JavaScript. All your focus will be on TypeScript.
 
-I understand that at the first glance it may be a little bit confusing. But believe me, you will feel how easy it is once you start use it. So don't hurry ;)
+I understand that at the first glance it may be a little bit confusing. But believe me, you will feel how easy it is once you start use it. So don't hurry *;)*
+
+Now we need to configure this project's transpiler. And to do so we need to use `--init` option to generate the transpiler's configuration file. So type `node_modules/typescript/bin/tsc --init` and a tsconfig.json file will be generated. Open this file, and after neglecting all the commented commands, it looks like:
+
+```json
+{
+  "compilerOptions": {
+   "target": "es5",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
+    "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "strict": true,                           /* Enable all strict type-checking options. */
+    "esModuleInterop": true,                  /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "forceConsistentCasingInFileNames": true,  /* Disallow inconsistently-cased references to the same file. */
+  }
+}
+```
 
 ## Writing your first test
