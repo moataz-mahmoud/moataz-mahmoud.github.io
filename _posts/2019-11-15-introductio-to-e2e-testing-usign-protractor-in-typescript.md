@@ -99,7 +99,7 @@ Now we will work step by step on how to create a new test project and configure 
 
 The first step will be to create a folder for your test project. Then open this folder using VSCode, and click `ctrl + ~` to open the terminal. Again type `npm -v` to make sure that your project can see the globally installed version of node. Now type `npm init`. This command is to initialize the project for you. And after this command runs successfully, you can find that there is a package.json file got created for you. By default the content of this file should be something like that:
 
-```json
+```typescript
 {
   "name": "test",
   "version": "1.0.0",
