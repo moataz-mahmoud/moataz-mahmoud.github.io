@@ -288,6 +288,8 @@ The final step is to run the test. And there are two main steps to be done to ru
 ```diff
 + this text is highlighted in green
 - this text is highlighted in red
+! this text is highlighted in green
+\ this text is highlighted in blue
+# thid text is highlighted in dark
 ```
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `#f03c15`
