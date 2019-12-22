@@ -229,7 +229,35 @@ export let config: Config = {
 }
 ```
 
-#### the spec file
+#### The spec file
+
+Let's talk about this file's structure first. As mentioned before, this file will contain all the logic in the test cases. And one of the highest skills of a software tester is being well-organized. That organization is being used all the time by the suppliers of manual software testing providers. And it's one of the top reasons why I prefer using Protractor over too many other options when it comes to test automation. It's super organized. The main strucure of it is simple. In each file you can list many test suites. In each test suite you can list many test cases. the `describe` block represents a test suite and the `it` block represents a test case. So a simple file structure could be as following:
+
+```typescript
+describe('title of a test suite: ', () => {
+    it('title of a test case.', () => {
+
+    })
+
+    it('title of another test case.', () => {
+
+    })
+})
+
+describe('title of another test suite', () => {
+    it('title of a test case.', () => {
+
+    })
+
+    it('title of another test case.', () => {
+
+    })
+})
+```
+
+You can add as many test suites as you want in the same file. Also each test suite can hold any number of test cases. But keep in mind too many test cases by a test suite, or to many test suites by a file isn't a good practice. It makes the code harder to be read. And also if there is a specific test cases failed in a test run, it becomes harder to trace its failure if there are too many others in the same test suite.
+
+In this section I'll show the complete version of the file and then dig deeper to its details:
 
 ```typescript
 import { LandingPage } from "../../POMs/LandingPage";
@@ -246,3 +274,9 @@ describe('landing page test case: ', () => {
     })
 })
 ```
+
+As you can see, the code is self-explanatory. It's one test suite with one test case. The test case is 'expecting the title of the blog to be "Moataz Mahmoud"'. At first, it creates a local object of a LandingPage class. And the scope of this object and where is the best place to define it will be explained in detail in one of the coming posts. The next step is to tell the runner to stop waiting for Angular modules to be loaded since it's not an Angular website. If you are testing an Angular application, then you will pass this line. Of course you don't want your test to start playing with the content of the page without waiting it to be fully loaded in this case. And make sure that this line is written somewhere before calling the browser.get() function.Then it opens the browser, hits the base URL, and finally expects the page title to be 'Moataz Mahmoud'. That's all for this test.
+
+## Running the test
+
+The final step is to run the test. And there are two main steps to be done to run any Protractor test. First you have to run ```webdriver-manager start```. This command will start up a Selenium Server and will output a bunch of info logs. Your Protractor test will send requests to this server to control a local browser. You can see information about the status of the server at <http://localhost:4444/wd/hub.> The next step is to type ```npm run test``` where test is the name of the script you had previously defined in the package.json file. And once this command starts running it runs three other nested commands. The first command is `npm run tsc` where tsc is the mapping for the transpiler which you again should have been defined in the package.json file. This command run the mapping which will run the transpiler to generated the JavaScript version of the test. And the final command is the Protractor command which run the config file of the desired test.
