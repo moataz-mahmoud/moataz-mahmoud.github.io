@@ -283,5 +283,16 @@ The final step is to run the test. And there are two main steps to be done to ru
 
 The final note here is that you can show the details of your running process in the terminal. If the test got failed, you can find a detailed log in the terminal.
 
+## Wrap up
 
+Quickly speaking...
+To build a test project you need to:
 
+** Get all the dependencies installed.
+** Configure the linter.
+** Build the page object model.
+** Write the configuration of the test.
+** Write the specs.
+** Fire the tests up from the terminal.
+
+That's all for the first part of the tutorial. Hope that it was interesting journey. More details and advanced topics regarding to using Protractor for e2e will be covered in the next few posts. so keep tuned! And I want to greet everyone who is still running until this very last line!
