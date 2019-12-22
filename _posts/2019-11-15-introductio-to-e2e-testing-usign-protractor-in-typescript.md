@@ -282,6 +282,12 @@ As you can see, the code is self-explanatory. It's one test suite with one test 
 The final step is to run the test. And there are two main steps to be done to run any Protractor test. First you have to run ```webdriver-manager start```. This command will start up a Selenium Server and will output a bunch of info logs. Your Protractor test will send requests to this server to control a local browser. You can see information about the status of the server at <http://localhost:4444/wd/hub.> The next step is to type ```npm run test``` where test is the name of the script you had previously defined in the package.json file. And once this command starts running it runs three other nested commands. The first command is `npm run tsc` where tsc is the mapping for the transpiler which you again should have been defined in the package.json file. This command run the mapping which will run the transpiler to generated the JavaScript version of the test. And the final command is the Protractor command which run the config file of the desired test. Once that last command runs, an instance of the browser you defined in the config.ts file should be opened with the defined options -Google chrome in our case-.
 
 ```diff
++ And eventually, set back and enjoy your tests running successfully 🎉🎉🎊.
+```.
+
+```diff
 + this text is highlighted in green
 - this text is highlighted in red
 ```
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `#f03c15`
