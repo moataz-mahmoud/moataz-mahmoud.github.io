@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Protractor in TypeScript - Part 2: Select Web Elements (basic guide)"
-date: 2020-04-09 04:18:06
+date: 2020-05-19 00:33:14
 image: '/assets/img/'
 description: Using basic selectors to find web elements
 tags: [end-to-end testing, JavaScript, TypeScript, Protractor]
