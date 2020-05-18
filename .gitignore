@@ -4,5 +4,5 @@ node_modules
 _drafts
 
 #dependncies
-/sample_test/e2e
+/sample_test/node_modules
 /sample_test/convertedjs
