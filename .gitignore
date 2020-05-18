@@ -7,4 +7,4 @@ _drafts
 /sample_test/node_modules
 /sample_test/package-lock.json
 /sample_test/convertedjs
-/.jekyll-cache
+/.jekyll-cache/*
