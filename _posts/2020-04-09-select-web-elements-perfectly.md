@@ -307,15 +307,9 @@ element(by.css('input[type=username]')).sendKeys('moatazmasters@gmail.com')
 At the end of this post, here are all the areas covered in this post:
 
 * The way that Protractor works to select elements.
-
 * How to select elements using the basic locators.
-
 * Quick look on the basic CSS selectors (more is coming in part 3)
-
 * What's an xPath and how to use it to select elements
-
 * How to select multiple elements in one command
-
 * How to use Google Chrome console to make sure that you are writing the correct selector.
-
 * Finally, how to implement actions on a selected element.
