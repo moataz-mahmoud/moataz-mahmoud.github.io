@@ -2,3 +2,7 @@ _site
 .sass-cache
 node_modules
 _drafts
+
+#dependncies
+/sample_test/e2e
+/sample_test/convertedjs

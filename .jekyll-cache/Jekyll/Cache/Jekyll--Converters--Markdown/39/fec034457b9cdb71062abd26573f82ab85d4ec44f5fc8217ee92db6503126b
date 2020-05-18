@@ -1,0 +1,318 @@
+I"�<p>In the <a href="https://moataz-mahmoud.github.io/protractor-in-typescript-part-1-build-the-simplest-test!/">first post</a> of this series, we talked generally about end to end testing and why I chose Protractor and Typescript specifically for this tutorial, and in the second part we built a simple test together and discovered how to run it.</p>
+
+<p>In that simple application we have built in the first part, we had two main directories in the application. The first is the Page Object Model (POM) where the web elements selectors and their accessors live, and the second is the specs folder where the logic and the test cases steps are running.
+This post will discuss the first directory -POM- in more details.</p>
+
+<h2 id="how-protractor-is-selecting-elements">How Protractor is selecting elements?</h2>
+
+<p>To facilitate selecting elements, Protractor exports a global function <code class="highlighter-rouge">element</code>. This function takes <em>Locator</em> and returns <em>ElementFinder</em> object. That returned object has a set of actions were populated as methods to perform actions on the selected element. So that after selecting an element, you can play with it depending on its type. You can click on , hovering over, selecting options from, typing inside, and/or get text from this web element depending on its type. In fact there is a bunch of other actions you can do, some of them are a little bit complex to perform some advanced operations. Those actions will be discussed in detail later in this post. That’s all you need to know about the ElementFinder object for now. But you need to know more about the Locator …</p>
+
+<p>This Locator on a low-level is an object of type webDriver.Locator returned by a function. Every selection possible way to be discussed in this article (and some few more!) are either returned by a method, or assigned to a property which will be passed to the element global function to locate the web element in the DOM. All these methods and properties are members of a collective object called <code class="highlighter-rouge">By</code> object. In the editor you are using, you can refer to this object either as ‘by’ or as ‘By’. Both of them are aliases to a ProtractorBy class. For me, I prefer using ‘By’ (with capital B) because it’s more aligned with the standard naming conversions which state that the object should start with a capital letter. But if you are coming from a python background for example, you may be used to using the ‘by’ (with small b) instead and it should be fine.</p>
+
+<blockquote>
+  <p>So, The full view is that you will pass a selector to the element method to get a web element and start applying actions to it. Many examples are coming soon.</p>
+</blockquote>
+
+<h2 id="select-using-basic-locators">Select using basic locators</h2>
+
+<p>There is a ton of selectors which are supported by Protractor, Some of them are natively implemented in Protractor, which means they aren’t usable in other test automation frameworks, and others are inherited from the webDriver and those are publicly used for all the test frameworks based on the webDriver. You can find the full list of available locators and a quick example on how to use each one of them on the <a href="http://www.protractortest.org/#/api">official API reference</a> on protractor website. All the selectors are usable in the same way regardless they are native or inherited.</p>
+
+<p>If there was a very good planning between the development and testing team from day zero in the project planning, the front-end developer should use names, ids, and tags for every web element or at least most of them. But when it’s not always the case, we always need to select other different selector than the basic ones, and in the basic locators we will cover the below:</p>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">id</code>:</strong> The most straight forward way to select a web element is by its id. <code class="highlighter-rouge">element(by.id('id_value'))</code></li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"engineers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mostafa<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Moataz<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Moataz</span>
+<span class="kd">let</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">tester</span><span class="dl">'</span><span class="p">))</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">tester</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Moataz</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">name</code>:</strong> Another easy way to select a web element is by its name. <code class="highlighter-rouge">element(by.name('name_value'))</code></li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"engineers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">name=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mostafa<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">name=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Moataz<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Moataz</span>
+<span class="kd">let</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">name</span><span class="p">(</span><span class="dl">'</span><span class="s1">tester</span><span class="dl">'</span><span class="p">))</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">tester</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Moataz</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">tagName</code>:</strong> User can also select a web element by its tagName. <code class="highlighter-rouge">element(by.tagName('tag'))</code></li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.google.com"</span><span class="nt">&gt;</span>Google<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Google</span>
+<span class="kd">let</span> <span class="nx">website</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">tagName</span><span class="p">(</span><span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">))</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">website</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Google</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">linkText</code>:</strong> The final selector to be mentioned in this section is the linkText. <code class="highlighter-rouge">element(by.linkText('text'))</code></li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.google.com"</span><span class="nt">&gt;</span>Google<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Google</span>
+<span class="kd">let</span> <span class="nx">website</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">linkText</span><span class="p">(</span><span class="dl">'</span><span class="s1">Google</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="select-using-css">Select using CSS</h2>
+
+<p>In many of the cases, there are none of the previous basic locators are used and in this case, we need to use more advanced selectors. The first option is to use one of the css selectors. There are many css selectors which are supported in protractor and here is a list of each of them by example:</p>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">css</code></strong>: This selector can be used by one of three ways. For the following html sample:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"engineers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">'software-engineers'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mostafa<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Moataz<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">'other-software-engineers'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mohammed<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Asmaa<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<ol>
+  <li>By taking the full css tree of an element and the full tree will be built by css of the element to be selected proceeded by the classes of all its parents, and as you may know every css class must start by a dot in the css tree. So the selector will be something like that: ‘.parent.child.elementToBeSelected’, and you can have as many as children in the tree based on the level of the element you want to select.</li>
+</ol>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Moataz</span>
+<span class="kd">let</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">.engineers.software-engineers.tester</span><span class="dl">'</span><span class="p">))</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">tester</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Moataz</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>2.By taking the css class of only the element to be selected in case that this css class is unique. So in the above HTML example, you should be able to select the ‘software-engineers’ element using its class only. But you can’t do that for an ‘element’ because there are two web elements in the snippet with this class and in this case, a warning message will be shown and the first element matches this css will be retrieved. So using something like <code class="highlighter-rouge">element(by.css('.tester'))</code> will retrieve that element with ‘Moataz’ content not ‘Asmaa’. <strong><em>So be careful when you are using the exact match of css.</em></strong></p>
+
+<ol>
+  <li>By taking a relative css class. This is done by passing two css classes. The first one will be considered as the css of the element you need to select, and the second will be the startNode. This specifies an element or Node from which to search for elements. So you are telling Protractor here to select a specific element relative to another one. Actually when passing only one css class (as mentioned in the second point above), the second parameter is set to <code class="highlighter-rouge">document</code> by default behind the scenes and here is an example to use it:</li>
+</ol>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Asmaa</span>
+<span class="kd">let</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">.tester</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">.other-software-engineers</span><span class="dl">'</span><span class="p">))</span>    <span class="c1">//same as (by.css('.tester .other-software-engineers'))</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">tester</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Asmaa</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">className</code></strong>: This selector is working exactly like the css selector if you passed an exact css class (the second case mentioned above) and here is an example:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"engineers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">name=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mostafa<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">name=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Moataz<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Moataz</span>
+<span class="kd">let</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">className</span><span class="p">(</span><span class="dl">'</span><span class="s1">tester</span><span class="dl">'</span><span class="p">))</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">tester</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Moataz</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">cssContainingText</code></strong>: This is one of my favorite selectors. As you can get from its self-explanatory name, this selector returns the element based on the text inside its css class and clear enough it takes two arguments: The first for the css class and the second for the text and here is an example:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"engineers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">css=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mostafa<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">css=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Moataz<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web element for Moataz</span>
+<span class="kd">let</span> <span class="nx">tester</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">cssContainingText</span><span class="p">(</span><span class="dl">'</span><span class="s1">.tester</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Moataz</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>What makes this selector special for me are two points: The first is that you don’t need to give it the exact value of the text containing by a web element. It’s enough to give it a subString and it will select the element for you. In many practical situations, it’s high efficient. So imagine that you have a page which renders a table with too many data and you want to select all the rows which contains a specific company name or user id. So all what you want is just specifying the css class of each cell in this table and pass the company name or any parameter you want to select all the cells which contains this value. So it works like a built-in search feature within your application. I know that with this paradigm you will receive back an array of elements instead of one element. But don’t worry, this will be fully covered in a below section about finding multiple elements.The second special thing about this selector is that it’s super easy to be written. Once you need to select an element, all what you need is to get a text inside it then you will just pass this text and the css class to get this element selected. You don’t need to bother about the css class uniqueness or start identifying how many levels you need to move up in the DOM to find something unique you can select in this element with and in a real life task, time efficiency is one of the key factors to select a specific selector and this will be discussed later in this article.</p>
+
+<ul>
+  <li><strong>Select by <code class="highlighter-rouge">deepCss</code></strong>: This selector is a little bit an advanced one and rarely used in practice. It selects element by css within the shadow DOM. If you don’t know what the shadow DOM means, you can go to this <a href="https://glazkov.com/2011/01/14/what-the-heck-is-shadow-dom/">article</a>. It’s super subtle and informative, in the same time gives the full details about what’s the shadow DOM with many example and here is a quick example about how it works:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"outerspan"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;</span><span class="err">"</span><span class="na">shadow</span> <span class="na">tree</span><span class="err">"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"span1"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;</span><span class="err">"</span><span class="na">shadow</span> <span class="na">tree</span><span class="err">"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"span2"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/&gt;</span>
+  <span class="nt">&lt;/&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">spans</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">deepCss</span><span class="p">(</span><span class="dl">'</span><span class="s1">span</span><span class="dl">'</span><span class="p">));</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">spans</span><span class="p">.</span><span class="nx">count</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>For now, we talked about the four possible css selectors available for Protractor, and may you haven’t known that css and className selectors are inherited from the WebDriver when cssContainingText and deepCss are native Protractor selectors until someone tells you this piece of info. This is clear because there is no difference between how to use any of them at all. <strong>And that’s the power of Protractor. It extends the WebDriver to be wider and wider and supporting more features with better performance in native syntax.</strong></p>
+
+<p>At this point, we covered the syntax of how to use the css selectors family and we will discuss more about the performance and usability of them in the next part of this tutorial. <strong>Also more advanced techniques will be detailed in that next part</strong>. But what you may need to keep in mind by the end of this section is - <span style="color:green;"><strong>Whenever the chance to use a css selector comes, don’t hesitate!</strong></span>.</p>
+
+<h2 id="select-using-xpath">Select using XPath</h2>
+
+<p>Another farewell way to select web elements is to select by XPath. XPath is efficient in finding the complex or dynamic elements whose attributes are changed dynamically on refresh or any other action taken by the user. XPath stands for XML path. It is a syntax for finding elements on a web page using XML path expression using HTML DOM structure. In other words, XPath contains the path of the element positioned at the web page and a standard syntax for an XPath is <code class="highlighter-rouge">xpath=//tagName[@attribute='value']</code>. ‘//’ selects the current node, ‘tagName’ specifies the tagName of a particular node, ‘@’ selects an attribute, ‘attribute’ identify the attribute name to be selected, and finally ‘value’ equals the value of this attribute.
+There are two types of XPath: The absolute XPath and the relative XPath. They are similar to the absolute and relative paths of files used on hard desk. Let’s discuss both of them in more details.</p>
+
+<ul>
+  <li>
+    <p><strong>Absolute XPath:</strong> AKA the full XPath. This is the full path of an element starting from the root node to the element which set to be selected, and an example of an absolute XPath is something like &lt;/html/body/section/article/div[10]/div/pre/code/span[53]&gt; (copied from the current page that you are reading on). If you don’t know how to get the full XPath of an element, all what you need is to right click on that element in the web page, click ‘Inspect’, select ‘Copy’, and then ‘Copy full XPath’. As you can see it’s always starting with a ‘/’ which stands for the root followed by the parent tag ‘html’.</p>
+
+    <p>As you can see, The absolute XPath is that it’s very long. It makes your code not readable and as a result, maintaining and fixing your code become an absolute hassle. But it’s not the main drawback of using the absolute XPath. Imagine that you are selecting an element, and a front-end developer added just another element in one of the parent nodes of the element that you are selecting, Then your selector will be pointing to another completely different element than the desired one. The same will happen if someone added or deleted a parent element in the tree. It’s as same as what happens if you saved a physical path to a directory on your hard desk, and suddenly you added a new sub directory any place in the tree then your saved directory won’t work anymore.</p>
+  </li>
+  <li>
+    <p><strong>Relative XPath</strong>: As mentioned in its name, the relative XPath is the location of an element relative to another node not relative to the root. It starts with the double forward slash ‘//’, which means it can search the element anywhere at the WebPage so that you can start from the middle of the HTML DOM structure and no need to write long XPath, For the above absolute XPath &lt;/html/body/section/article/div[10]/div/pre/code/span[53]&gt; we can retype it as ‘//code/span[53]’. But in this case, you need to make sure that there is only one code node which has a span child and if not, you need to start locating element from the node which gives you a unique element. In the above example (which is taken from the current page source) there are seven elements will be retrieved if we use the mentioned relative XPath. Now you have two options to translate the full path to an accurate relative XPath:</p>
+
+    <p>First: <strong>Start searching for a unique start point</strong>: When we started from the direct parent of the node to be selected, we got 7 elements but if we moved one node backwards, the number of the options will be at most equal to those 7 elements and that’s straight forward. You can’t find an element in a longer XPath unless it’s already existed in the child’s XPath so we will start moving backwards node by node until getting the most accurate XPath to be used. So we add the parent ‘pre’ to the absolute XPath to be ‘//pre/code/span[53]’ and check if it’s a unique element but unfortunately it isn’t. So we will keep doing until finding the unique element, this ends up with this relative XPath ‘//div[10]/div/pre/code/span[53]’. But you can see that it’s not the best relative XPath possible! That’s why we will move to point 2.</p>
+
+    <p>Second: <strong>Start searching for a unique identifier for the desired node</strong>: What I mean, being a unique identifier is a unique tag name, and from the first look you can think about the css content which is ‘http://localhost:4444/wd/hub’. But if you searched by it, you will find 5 different elements and after a sharp look, you can find that a combination between the css class of the parent and the text of the current node solves the dilemma.You can type it as <code class="highlighter-rouge">//code//*[text()='http://localhost:4444/wd/hub']</code>. You can also note that there is an additional * after each of the second double slashes in the XPath. YES! it’s the syntax to tell the browser “please, select all the elements with those criteria for all tags”, and it’s inspired by the asterisk meaning in the regular expressions.</p>
+
+    <p>In fact, you can still get a relative path by right clicking on the web element in the web page and click ‘Inspect’ then ‘Copy’ and ‘Copy XPath’. It will copy a unique relative XPath for your selected element. But it’s still not the best relative XPath so you may need to go for one of the above ways to get a less fragile relative XPath.</p>
+  </li>
+</ul>
+
+<p>Finally, to select an element by XPath, you should write a statement like that:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">xpath</span><span class="p">(</span><span class="dl">'</span><span class="s1">absolute or relative xpath</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>In short sentences. XPath is a syntax to tell the browser the position of an element in DOM. It could be either absolute or relative. The relative is more readable and so that more efficient to be used and we discussed how to transform an absolute XPath to a relative one. Actually, we haven’t written the most perfect XPath yet. More tips and tricks are shown in the next part of this tutorial. Stay tuned ;)</p>
+</blockquote>
+
+<h2 id="select-multiple-elements">Select multiple elements</h2>
+
+<p>In many cases, you don’t need to select only one element. Instead, you need to select multiple of them. For example, you need to select all the code snippets in this blog post’s page and in this case, you need to use a different method than <code class="highlighter-rouge">element</code> method. As stated, ‘element’ method takes a locator as parameter and returned a selected ElementFinder. Protractor supports it using the <code class="highlighter-rouge">element.all</code> method which takes a locator also but returns <strong>ElementArrayFinder</strong>. Here ‘element’ is nothing more than an element helper. The selection method is the ‘all’ method, to use it write <code class="highlighter-rouge">element.all('some-locator')</code> and an array of web elements will be retrieved (ElementArrayFinder in lower level). Let’s talk about that ElementArrayFinder object in more details.</p>
+
+<p>The ElementArrayFinder is used to set up a chain of conditions that identify an array of elements. In particular, you can call all(locator) and filter(filterFn) to return a new ElementArrayFinder modified by the conditions and you can call get(index) to return a single ElementFinder at position ‘index’. More details are coming about this point in future parts.</p>
+
+<p>Similar to jquery, ElementArrayFinder will search all branches of the DOM to find the elements that satisfy the conditions (i.e. all, filter, get). However, an ElementArrayFinder won’t actually retrieve the elements until an action is called, which means it can be set up in helper files such as page objects before the page is available and reused as the page changes. You can treat an ElementArrayFinder as an array of WebElements for most purposes, In particular, you may perform actions such as click or getText (to be discussed in an upcoming section) on them as you would do on array of WebElements. The action will apply to every element identified by the ElementArrayFinder. The array has length equal to the length of the elements found by the ElementArrayFinder and each result represents the result of performing the action on the element. Unlike a WebElement, an ElementArrayFinder will wait for the angular app to settle before performing finds or actions. Exactly as ElementFinder does. Again, it’s another area of power of protractor.</p>
+
+<p>The notation of using ‘all’ function is straight forward:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"engineers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Ahmed<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Ali<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mohammed<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Monica<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mohannad<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mostafa<span class="nt">&lt;/li&gt;</span>
+
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Asmaa<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Hagar<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Moataz<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Rabab<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns the web elements array of developers</span>
+<span class="kd">let</span> <span class="nx">developers</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="kd">class</span><span class="p">(</span><span class="dl">'</span><span class="s1">developer</span><span class="dl">'</span><span class="p">))</span>
+
+<span class="c1">// Returns the web elements array of testers</span>
+<span class="kd">let</span> <span class="nx">testers</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="kd">class</span><span class="p">(</span><span class="dl">'</span><span class="s1">tester</span><span class="dl">'</span><span class="p">))</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">developers</span><span class="p">.</span><span class="nx">getSize</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">testers</span><span class="p">.</span><span class="nx">getSize</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1">// Similar -&gt; element.all(by.class('tester')).get(2)</span>
+<span class="kd">let</span> <span class="nx">moatazTester</span> <span class="o">=</span> <span class="nx">testers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">moatazTester</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Moataz</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="select-from-google-chrome-console">Select from Google Chrome console</h2>
+
+<p>In the previous sections, you may find a difficulty. Every time you are selecting an element, you need to run your project to discover if it’s got selected correctly or different element is caught instead, and to get something indicating, you are logging something to the terminal like the variable name which holds that element or trying to get its inner text or any another idea, Of course it’s a huge time consumption and it’s not appropriate to do that! But what’s the solution for that?</p>
+
+<p>There are many solutions to that, and my preferred one is to use the browser console as a selection live demo to check if the expression you are writing is working well or there is something broken. Of course if you are selecting an element by its name or id it’s not tricky and you don’t need to run your solution. You almost need to check those elements selected by either css or XPath. Fortunately, Google Chrome supports it natively with no need to install any extensions.</p>
+
+<p>To select an element using css, all you need is to open the console inside Google Chrome and type <code class="highlighter-rouge">$('your-css-selector')</code>, To select an element by XPath type <code class="highlighter-rouge">$x('your-xpath-selector')</code>. For example if you have an element with css class css-class you type $(‘.css-class’) to select it by css or type $x(‘//div[@class=”css-class”]’) to select it by XPath. Those commands select all the elements which matches the used selector. So if your selector isn’t accurate enough and selects many elements, you can know that from the console and start playing with your selector until it works perfectly with you.</p>
+
+<p align="center"> <img src="/assets/images/chrome-console.PNG" /> </p>
+
+<p>Here is the view when you are selecting from console. The below details are retrieved about the selected element(s):</p>
+
+<ul>
+  <li>The first line is a summary to the selected elements indicating the number of them and the main class of each of them.</li>
+  <li>Line for each of the selected elements. Each line is clickable to show the details of that element.</li>
+  <li>Length property which tells what’s the number of the selected elements explicitly.</li>
+</ul>
+
+<h2 id="implement-actions-on-selected-elements">Implement actions on selected elements</h2>
+
+<p>After selecting elements, we need to perform some actions on them. Those actions are user-driven actions. This means that we need to perform all the actions which user can do. You can find the comprehensive list published on the <a href="http://www.protractortest.org/#/api">official documentation</a>. Here is a list of the most commonly used selectors with quick example. As usual, with the same html snippint:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"engineers"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">'software-engineers'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mostafa<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Moataz<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">'other-software-engineers'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"developer"</span><span class="nt">&gt;</span>Mohammed<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"tester"</span><span class="nt">&gt;</span>Asmaa<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">isPresent</code>: Checks if an element is existing or not. It returns a promise of boolean which can be checked to be true or false as following:</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">.software-engineer.tester</span><span class="dl">'</span><span class="p">)).</span><span class="nx">isPresent</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>  <span class="c1">//element exists</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">.software-engineer.technical-support</span><span class="dl">'</span><span class="p">)).</span><span class="nx">isPresent</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>  <span class="c1">//element does not exist</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">isElementPresent</code>: Checks if a sub-element is existing or not.</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">.software-engineer</span><span class="dl">'</span><span class="p">)).</span><span class="nx">isElementPresent</span><span class="p">(</span><span class="dl">'</span><span class="s1">.tester</span><span class="dl">'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>  <span class="c1">//element exists</span>
+
+<span class="c1">//This is equivalent to the previous command</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">.software-engineer</span><span class="dl">'</span><span class="p">)).</span><span class="nx">element</span><span class="p">.</span><span class="nx">by</span><span class="p">(</span><span class="dl">'</span><span class="s1">.tester</span><span class="dl">'</span><span class="p">)</span><span class="nx">isPresent</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">.software-engineer</span><span class="dl">'</span><span class="p">)).</span><span class="nx">isElementPresent</span><span class="p">(</span><span class="dl">'</span><span class="s1">.system-admin</span><span class="dl">'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>  <span class="c1">//element does not exist</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">click</code>: Not much description is needed here. The only note to be mentioned here is that you need to check if the element you are applying this action to is really clickable because if you tried to click on an element which is not clickable (i.e. text field), some warning will be received and at some edge cases, exception may be thrown and the test will fail.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">sendKeys</code>: This action is used to fill the text fields. It takes a string as parameter and fill the selected web element by this text.</p>
+  </li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">'</span><span class="s1">input[type=username]</span><span class="dl">'</span><span class="p">)).</span><span class="nx">sendKeys</span><span class="p">(</span><span class="dl">'</span><span class="s1">moatazmasters@gmail.com</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">getText</code>: Gets the visible innerText of this element, including sub-elements without any leading or trailing white space. Visible elements aren’t hidden by CSS. This action got used many times before in the selecting by css and selecting by XPath sections.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">clear</code>: clears the value of this element. This command has no effect if the underlying DOM element. Most of the time, you will use this action before start typing inside an element to make sure that this element will contain only the text you type once you finish typing.</p>
+  </li>
+</ul>
+
+<h2 id="whats-happening-behind-the-scenes">What’s happening behind the scenes?</h2>
+
+<h2 id="conclusion">Conclusion</h2>
+:ET

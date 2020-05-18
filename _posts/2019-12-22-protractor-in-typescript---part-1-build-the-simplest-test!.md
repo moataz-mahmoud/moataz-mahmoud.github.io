@@ -172,6 +172,8 @@ If we run the transpiler in this way, all the code written in TypeScript in our 
 
 ## Writing your first test
 
+First of all, you can find the complete project used in this tutorial through this [link](https://github.com/Moataz-Mahmoud/Moataz-Mahmoud.github.io/tree/master/sample_test).
+
 After a pretty long journey of configuring the project, finally here we are to start writing a sample test :D. This part of the turorial just implements a very simple test case. And in the next parts of the tutorial, more advanced test cases will be implemented.
 
 The simple test case will be just opening the website that you are currently reading this article on, and expect that the main title of it is **Moataz Mahmoud**. To do that, we will create two directories in the main project directory. One with name "POMs" -stands for Page Object Models-. And the other one is "specs". The first folder will contain all the page objects in the test project. And the second folder will contain all the test cases in the project with their configuration. Let's talk about every one in detail. In other words, as e2e is all about implementing all the user scenarios, all the script will do is locating elements and interacting with them. The process of locating the elements will be included in the POMs. And the process of building a method for every possible element interaction will be also created in the POMs but be used in the specs.
@@ -202,7 +204,7 @@ That's all for the simple LandingPage page object model. Let's move to creating 
 
 ### Specs
 
-In the specs directory, we will create a subdirectory for each test suite. In this example there is only one test suite -which actually contains only one test case-. So there will be only one subdirectory -for now- called for "landing-page" for example. This subirectory will contain only two files, one for the configuration and another for the actual specs. Let's discuss each one on its onw.
+In the specs directory, we will create a subdirectory for each test suite. In this example there is only one test suite -which actually contains only one test case-. So there will be only one subdirectory -for now- called for "landing-page" for example. This subirectory will contain only two files, one for the configuration and another for the actual specs. Let's discuss each one on its own.
 
 #### The config file
 

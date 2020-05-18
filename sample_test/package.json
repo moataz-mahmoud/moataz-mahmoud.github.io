@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "pretest": "npm run tsc",
+    "test": "protractor convertedjs/specs/landing-page/config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jasmine": "~3.5.0",
+    "@types/node": "~12.12.21",
+    "jasmine": "~3.5.0",
+    "protractor": "^5.4.2",
+    "typescript": "^3.6.4"
+  }
+}
