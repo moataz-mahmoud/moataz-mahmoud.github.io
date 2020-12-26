@@ -4,8 +4,8 @@ title: "Protractor in TypeScript - Part 2: Select Web Elements (basic guide)"
 date: 2020-05-19 00:33:14
 image: '/assets/img/'
 description: Using basic selectors to find web elements
-tags: [end-to-end testing, JavaScript, TypeScript, Protractor]
-categories: [end-to-end testing, JavaScript, TypeScript, Protractor]
+tags: [Protractor]
+categories: [Protractor]
 twitter_text: Select Web Elements Perfectly
 ---
 

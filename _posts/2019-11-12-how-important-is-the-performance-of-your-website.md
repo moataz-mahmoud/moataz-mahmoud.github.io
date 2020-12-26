@@ -3,8 +3,8 @@ layout: post
 title: "How important is the performance of your website"
 date: 2019-11-12 16:10:23
 image: '/assets/img/'
-tags: [performance testing]
-categories: [performance testing]
+tags: [Performance]
+categories: [Performance]
 twitter_text: 'How important is the performance of your website'
 ---
 

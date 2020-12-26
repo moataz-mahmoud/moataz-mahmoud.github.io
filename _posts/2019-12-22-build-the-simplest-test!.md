@@ -4,8 +4,8 @@ title: "Protractor in TypeScript - Part 1: Build the simplest test!"
 date: 2019-12-22 06:47:42
 image: '/assets/img/'
 description: Introducting why and how to write e2e tests using protractor in Typescript
-tags: [end-to-end testing, JavaScript, TypeScript, Protractor]
-categories: [end-to-end testing, JavaScript, TypeScript, Protractor]
+tags: [Protractor]
+categories: [Protractor]
 twitter_text: E2e testing usign Protractor in TypeScript - Part 1 (Build the simplest test!)
 ---
 
